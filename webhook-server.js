@@ -9,7 +9,7 @@ var HTTP_AUTH_B64_TOKEN = 'dXNlcjEyMzpwYXNzNzg5'; // user123:pass789
 var TARGET_HOOK = 'https://hooks.slack.com/services/<my_target>';
 var te_img = 'https://s3.amazonaws.com/uploads.hipchat.com/6634/194641/uncYbgVEMQ1XNtk/TE-Eye-36x36.jpg';
 var app = express();
-var FROM_ADDRESS = process.env.FROM_NAME + " <" + process.env.MAIL_RETURN + ">";
+var FROM_ADDRESS = '"' + process.env.FROM_NAME + '"' + " <" + process.env.MAIL_RETURN + ">";
     //Change this to a valid return address
 
 app.use(bodyParser.urlencoded({ extended: true }));
