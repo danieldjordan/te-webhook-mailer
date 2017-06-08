@@ -47,33 +47,32 @@ app.get('/', function (request, response) {
   console.log('GET request received');
 })
 
-app.post('/test', function (req, res) {
+app.post('/te', function (req, res) {
 
+  switch (req.body.eventType) {
 
-switch (req.body.eventType) {
-
-  case "WEBHOOK_TEST":
-    console.log(req.body.eventId)
-    break;
+    case "WEBHOOK_TEST":
+      console.log(req.body.eventId)
+      break;
+      
     
-  
-  case "ALERT_NOTIFICATION_TRIGGER":
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return console.log(error);
-      }
-      console.log('Message %s sent: %s', info.messageId,
-        info.response);
-      console.log(FROM_ADDRESS)
-    })
-    res.status(200).send(req.body)
-    break;
+    case "ALERT_NOTIFICATION_TRIGGER":
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          return console.log(error);
+        }
+        console.log('Message %s sent: %s', info.messageId,
+          info.response);
+        console.log(FROM_ADDRESS)
+      })
+      res.status(200).send(req.body)
+      break;
 
-  case "ALERT_NOTIFICATION_CLEAR":
-    console.log(req.body.eventId)
-    return;
+    case "ALERT_NOTIFICATION_CLEAR":
+      console.log(req.body.eventId)
+      return;
 
-}
+  }
 });
 
 app.use('/webhook-server', router);
