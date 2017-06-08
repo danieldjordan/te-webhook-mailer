@@ -9,7 +9,7 @@ var HTTP_AUTH_B64_TOKEN = 'dXNlcjEyMzpwYXNzNzg5'; // user123:pass789
 var TARGET_HOOK = 'https://hooks.slack.com/services/<my_target>';
 var te_img = 'https://s3.amazonaws.com/uploads.hipchat.com/6634/194641/uncYbgVEMQ1XNtk/TE-Eye-36x36.jpg';
 var app = express();
-
+var FROM_ADDRESS = process.env.FROM_NAME + process.env.MAIL_RETURN
     //Change this to a valid return address
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,8 +25,9 @@ let transporter = nodemailer.createTransport({
 });
 
 let mailOptions = {
-  name: 'ThousandEyes',
-  address: process.env.MAIL_RETURN, //Sender Address
+  //name: 'ThousandEyes',
+  //address: process.env.MAIL_RETURN, //Sender Address
+  from: FROM_ADDRESS,
   to: process.env.DESTINATION_EMAIL, //Destination Address
   subject: process.env.SUBJECT,//'ThousandEyes (Sev4)', //Subject Line
   html: process.env.MAIL_BODY,
@@ -122,8 +123,9 @@ switch (req.body.eventType) {
       }
       console.log('Message %s sent: %s', info.messageId,
       info.response);
+      console.log(FROM_ADDRESS)
     });
-    return;
+    break;
   
   case "ALERT_NOTIFICATION_TRIGGER":
     console.log(req.body.eventId)
