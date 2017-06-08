@@ -124,8 +124,10 @@ switch (req.body.eventType) {
       console.log('Message %s sent: %s', info.messageId,
       info.response);
       console.log(FROM_ADDRESS)
-    });
+    })
+    res.status(200).send(req.body)
     break;
+    
   
   case "ALERT_NOTIFICATION_TRIGGER":
     console.log(req.body.eventId)
