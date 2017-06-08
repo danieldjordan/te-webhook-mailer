@@ -1,0 +1,14 @@
+{
+  "name": "webhook-server",
+  "version": "0.1.0",
+  "description": "Webhook Server",
+  "dependencies": {
+    "body-parser": "~1.0.x",
+    "express": "~4.x.x",
+    "node-rest-client": "~1.5.x",
+    "nodemailer": "^4.0.1"
+  },
+  "scripts": {
+    "start": "node webhook-server.js"
+  }
+}
