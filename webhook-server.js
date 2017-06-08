@@ -10,26 +10,26 @@ var TARGET_HOOK = 'https://hooks.slack.com/services/<my_target>';
 var te_img = 'https://s3.amazonaws.com/uploads.hipchat.com/6634/194641/uncYbgVEMQ1XNtk/TE-Eye-36x36.jpg';
 var app = express();
 
-const DESTINATION_EMAIL = 'danieldjordan@gmail.com'  //Change this to destination address
-const RETURN_EMAIL = 'thebigdaddy@gmail.com'       //Change this to a valid return address
+    //Change this to a valid return address
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 let transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // use TLS
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: process.env.SMTP_SECURE, // use TLS
   auth: {
-    user: 'thebigdaddy@gmail.com',
-    pass: 'cscqnfdpwhxllidm'
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD
   }
 });
 
 let mailOptions = {
-  from: '"ThousandEyes " <thebigdaddy@gmail.com>', //Sender Address
-  to: DESTINATION_EMAIL, //Destination Address
-  subject: 'ThousandEyes (Sev4)', //Subject Line
-  html: 'Body Text',
+  name: 'ThousandEyes',
+  address: process.env.MAIL_RETURN, //Sender Address
+  to: process.env.DESTINATION_EMAIL, //Destination Address
+  subject: process.env.SUBJECT,//'ThousandEyes (Sev4)', //Subject Line
+  html: process.env.MAIL_BODY,
 };
 
 
