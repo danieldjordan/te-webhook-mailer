@@ -4,8 +4,8 @@ var restClient = require('node-rest-client').Client;
 const nodemailer = require('nodemailer');
 
 var PORT = (process.env.PORT || 5000);
-//var SECURITY_TOKEN = 'OJdqYg87SOcax0baFpf5WInifeErRryPA9qLjiugadBgenwi3UDBj8od21UM5to';
-//var HTTP_AUTH_B64_TOKEN = 'dXNlcjEyMzpwYXNzNzg5'; // user123:pass789
+var SECURITY_TOKEN = 'OJdqYg87SOcax0baFpf5WInifeErRryPA9qLjiugadBgenwi3UDBj8od21UM5to';
+var HTTP_AUTH_B64_TOKEN = 'dXNlcjEyMzpwYXNzNzg5'; // user123:pass789
 var te_img = 'https://s3.amazonaws.com/uploads.hipchat.com/6634/194641/uncYbgVEMQ1XNtk/TE-Eye-36x36.jpg';
 var app = express();
 var FROM_ADDRESS = process.env.FROM_NAME  + " <" + process.env.MAIL_RETURN + ">";
@@ -49,10 +49,18 @@ app.get('/', function (request, response) {
 
 app.post('/te', function (req, res) {
 
+  var client_ip = req.ip
+  if (req.headers['authorization'] !== 'Basic ' + HTTP_AUTH_B64_TOKEN) {
+    console.log("Unauthorized Access from " + client_ip)
+    res.status(401).send({ error: 'Unauthorized for http basic' });
+    return;
+  }
+
   switch (req.body.eventType) {
 
     case "WEBHOOK_TEST":
       console.log(req.body.eventId)
+      res.status(200).send(req.body)
       break;
       
     
@@ -70,7 +78,8 @@ app.post('/te', function (req, res) {
 
     case "ALERT_NOTIFICATION_CLEAR":
       console.log(req.body.eventId)
-      return;
+      res.status(200).send(req.body)
+      break;
 
   }
 });
