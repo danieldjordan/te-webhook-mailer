@@ -4,7 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var restClient = require('node-rest-client').Client;
 const nodemailer = require('nodemailer');
-
+var fullMailBody;
 //Sets port entered as Heroku Variable
 var PORT = (process.env.PORT || 5000);
 //Authentication Settings - Base 64 encoded token 
@@ -43,6 +43,7 @@ function objToStr(obj) {
   return str;
 }
 
+
 //function to process a get request to the base URL
 app.get('/', function (request, response) {
   response.send('This the ThousandEyes simple Webhook server sample.  Use POST methods to /sev1.')
@@ -52,13 +53,18 @@ app.get('/', function (request, response) {
 
 //function to process the te endpoint
 app.post('/te', function (req, res) {
-
+  if (process.env.INCLUDE_TEST_BODY) {
+      fullMailBody = process.env.MAIL_BODY + ":" + req.body.alert.testName,
+  } else {
+      fullMailBody = process.env.MAIL_BODY,
+  }
+    
   //build the nodemailer options
   let mailOptions = {
     from: FROM_ADDRESS,
     to: process.env.DESTINATION_EMAIL, 
     subject: process.env.SUBJECT + ": " + req.body.alert.testName,
-    html: process.env.MAIL_BODY,
+    html: fullMailBody,
   };  
 
   //check for authentication
@@ -88,13 +94,13 @@ app.post('/te', function (req, res) {
           info.response);
         console.log(FROM_ADDRESS)
       })
-      console.log(req.body.alert.testName)
+      console.log("Alert Recieved for " + req.body.alert.testName)
       res.status(200).send(req.body)
       break;
 
     //Alert Notification clear event type
     case "ALERT_NOTIFICATION_CLEAR":
-      console.log(req.body.eventId)
+      console.log("Alert Notification Cleared for " + req.body.alert.testName)
       res.status(200).send(req.body)
       break;
 
