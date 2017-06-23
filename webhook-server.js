@@ -46,7 +46,7 @@ function objToStr(obj) {
 
 //function to process a get request to the base URL
 app.get('/', function (request, response) {
-  res.sendfile('views/config.html')
+  response.sendFile( __dirname + "/views/" + "config.html" );
   console.log('GET request received');
 })
 
