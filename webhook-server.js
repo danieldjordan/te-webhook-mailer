@@ -53,11 +53,11 @@ app.get('/', function (request, response) {
 
 //function to process the te endpoint
 app.post('/te', function (req, res) {
-  if (process.env.INCLUDE_TEST_BODY) {
-      fullMailBody = process.env.MAIL_BODY + ":" + req.body.alert.testName,
-  } else {
-      fullMailBody = process.env.MAIL_BODY,
-  }
+  if (process.env.INCLUDE_TEST_BODY == true) {
+      fullMailBody = (process.env.MAIL_BODY + ":" + req.body.alert.testName);
+    } else {
+      fullMailBody = process.env.MAIL_BODY;
+    }
     
   //build the nodemailer options
   let mailOptions = {
