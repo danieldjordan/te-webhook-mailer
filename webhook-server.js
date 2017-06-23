@@ -22,13 +22,6 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-let mailOptions = {
-  from: FROM_ADDRESS,
-  to: process.env.DESTINATION_EMAIL, 
-  subject: process.env.SUBJECT,
-  html: process.env.MAIL_BODY,
-};
-
 
 var router = express.Router();
 
@@ -48,6 +41,13 @@ app.get('/', function (request, response) {
 })
 
 app.post('/te', function (req, res) {
+
+  let mailOptions = {
+    from: FROM_ADDRESS,
+    to: process.env.DESTINATION_EMAIL, 
+    subject: process.env.SUBJECT + ": " + req.body.alert.testName,
+    html: process.env.MAIL_BODY,
+  };  
 
   var client_ip = req.ip
   if (req.headers['authorization'] !== 'Basic ' + HTTP_AUTH_B64_TOKEN) {
@@ -73,6 +73,7 @@ app.post('/te', function (req, res) {
           info.response);
         console.log(FROM_ADDRESS)
       })
+      console.log(req.body.alert.testName)
       res.status(200).send(req.body)
       break;
 
@@ -80,7 +81,7 @@ app.post('/te', function (req, res) {
       console.log(req.body.eventId)
       res.status(200).send(req.body)
       break;
-
+      
   }
 });
 
