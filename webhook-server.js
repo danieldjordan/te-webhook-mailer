@@ -46,7 +46,7 @@ function objToStr(obj) {
 
 //function to process a get request to the base URL
 app.get('/', function (request, response) {
-  response.send('This the ThousandEyes simple Webhook server sample.  Use POST methods to /sev1.')
+  res.sendfile('views/config.html')
   console.log('GET request received');
 })
 
@@ -64,7 +64,7 @@ app.post('/te', function (req, res) {
     from: FROM_ADDRESS,
     to: process.env.DESTINATION_EMAIL, 
     subject: process.env.SUBJECT + ": " + req.body.alert.testName,
-    html: fullMailBody,
+    text: fullMailBody,
   };  
 
   //check for authentication
