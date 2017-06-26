@@ -16,14 +16,25 @@ var app = express();
 
 //Build the from address from Heroku variable FROM_NAME and MAIL_RETURN
 var FROM_ADDRESS = process.env.FROM_NAME  + " <" + process.env.MAIL_RETURN + ">";
+//Default SMTP to Gmail
+if (useGmail) {
+  var smtpHost = 'smtp.gmail.com';
+  var smtpPort = '465';
+  var smtpSecure = true;    
+} else {
+  var smtpHost = process.env.SMTP_HOST;
+  var smtpPort = process.env.SMTP_PORT;
+  var smtpSecure = process.env.SMTP_SECURE;
+};
+
 
 //Set up Nodemailer
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 let transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: process.env.SMTP_SECURE, // use TLS
+  host: smtpHost,
+  port: smtpPort,
+  secure: smtpSecure, // use TLS
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASSWORD
