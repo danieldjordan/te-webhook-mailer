@@ -20,6 +20,7 @@ var FROM_ADDRESS = process.env.FROM_NAME  + " <" + process.env.MAIL_RETURN + ">"
 //Default SMTP to Gmail
 
 if (process.env.USE_GMAIL) {
+  console.log('Using Gmail Settings');
   var smtpHost = 'smtp.gmail.com';
   var smtpPort = '465';
   var smtpSecure = true;    
