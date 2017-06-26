@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var restClient = require('node-rest-client').Client;
 const nodemailer = require('nodemailer');
 var fullMailBody;
+
 //Sets port entered as Heroku Variable
 var PORT = (process.env.PORT || 5000);
 //Authentication Settings - Base 64 encoded token 
@@ -17,7 +18,8 @@ var app = express();
 //Build the from address from Heroku variable FROM_NAME and MAIL_RETURN
 var FROM_ADDRESS = process.env.FROM_NAME  + " <" + process.env.MAIL_RETURN + ">";
 //Default SMTP to Gmail
-if (useGmail) {
+
+if (process.env.USE_GMAIL) {
   var smtpHost = 'smtp.gmail.com';
   var smtpPort = '465';
   var smtpSecure = true;    
