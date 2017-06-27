@@ -45,3 +45,17 @@ SMTP_PASSWORD | password for SMTP Authentication
 SMTP_PORT | Port for SMTP server
 SMTP_SECURE | true is using secure smtp
 SUBJECT | Email Subject
+
+You can also use the .env file to make this easier.  To use the .env file you need to install the heroku-config plugin:
+
+```
+$ heroku plugins:install heroku-config
+```
+
+Edit the .env file in your local repo to include all the correct settings.  Once your instance is running on Heroku, then use the following command to push the config to your application
+
+```
+$ heroku config:push
+```
+
+This will push the environment variables to your instance.
