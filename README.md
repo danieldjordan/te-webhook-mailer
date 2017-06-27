@@ -39,12 +39,17 @@ DESTINATION_EMAIL | This will be the address the email is sent to
 FROM_NAME | The name on of the Sender ie. ThousandEyes
 MAIL_BODY | If you want to have content in the body of the email
 MAIL_RETURN | This should be a valid return email address
-SMTP_HOST | Your SMTP host
+SUBJECT | Email Subject
 SMTP_USER | username for SMTP Authentication
 SMTP_PASSWORD | password for SMTP Authentication
+USE_GMAIL | true if using gmail, if this is true the variables below are not needed
+
+Config Vars | Description
+------------ | -------------
+SMTP_HOST | Your SMTP host
 SMTP_PORT | Port for SMTP server
 SMTP_SECURE | true is using secure smtp
-SUBJECT | Email Subject
+
 
 You can also use the .env file to make this easier.  To use the .env file you need to install the heroku-config plugin:
 
