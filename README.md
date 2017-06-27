@@ -44,7 +44,7 @@ SMTP_USER | username for SMTP Authentication
 SMTP_PASSWORD | password for SMTP Authentication
 USE_GMAIL | true if using gmail, if this is true the variables below are not needed
 
-Config Vars | Description
+Config Vars if not using USE_GMAIL | Description
 ------------ | -------------
 SMTP_HOST | Your SMTP host
 SMTP_PORT | Port for SMTP server
