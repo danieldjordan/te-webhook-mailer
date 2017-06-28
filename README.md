@@ -43,6 +43,7 @@ SUBJECT | Email Subject
 SMTP_USER | username for SMTP Authentication
 SMTP_PASSWORD | password for SMTP Authentication
 USE_GMAIL | true if using gmail, if this is true the variables below are not needed
+INCLUDE_TEST_BODY | true to include test name in body of email
 
 Config Vars if not using USE_GMAIL | Description
 ------------ | -------------
